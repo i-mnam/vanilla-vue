@@ -41,6 +41,9 @@ new Vue({
                 this.submitted = true;
                 this.searchResult = data;
             });
+
+            HistoryModel.add(this.query);
+            this.fetchHistory();
         },
         onClickTab(tab) {
             console.log('onChangeTab()', tab);
@@ -69,11 +72,18 @@ new Vue({
         //     this.query = keyword;
         //     this.search();
         // }
-        // onRemoveHistory(keyword) {
-        //     console.log('onRemoveHistory()');
-        //     SearchModel.remove(keyword).list().then(data => {
-        //         this.history = data;
-        //     })
-        // }
+        onClickRemoveHistory(keyword) {
+            console.log('onRemoveHistory()');
+
+            // event bubbling 을 막자!! > stopP..
+            HistoryModel.remove(keyword);
+
+            // 왜 자꾸 중복적으로 함수를 고르냐!!
+            // HistoryModel.list().then(data => {
+            //     this.history = data;
+            // });
+            this.fetchHistory();
+
+        },
     }
 });

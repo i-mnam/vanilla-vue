@@ -81,4 +81,9 @@ viewModel.model = 'hello world';
 
 // fetchKeyword() 와 같이 함수를 언제 호출해야하는지 잘 생각해봐야 한다.
 
-// html 에 vue.js 를 통해 정말로 완전한 view 기능을 html 페이지 혼자서 담당하고 있다. > 그래서 짧다고, 편하다고(???) 느끼는 게 큰거 같다.   
+// html 에 vue.js 를 통해 정말로 완전한 view 기능을 html 페이지 혼자서 담당하고 있다. > 그래서 짧다고, 편하다고(???) 느끼는 게 큰거 같다. 
+
+
+// [13.3]
+// <button v-on:click.stop="onClickRemoveHistory(item.keyword)" 
+// 클릭을 아무리 해도 remove작동안 안먹혀서 e.preventDefault를 해봤지만 여전히 작동 안되었음 e.stopPropagation()이거만 버블링을 제거해줌..

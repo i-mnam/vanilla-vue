@@ -60,7 +60,10 @@
                                 <li v-for="item in history" v-on:click="onClickKeyword(item.keyword)">
                                     {{item.keyword}}
                                     <span class="date">{{item.date}}</span>
-                                    <button v-on:click="onRemoveHistory(item.keyword)" class="btn-remove"></button>
+                                    <!-- <button v-on:click.prevent="onClickRemoveHistory(item.keyword)"
+                                        class="btn-remove"></button> -->
+                                    <button v-on:click.stop="onClickRemoveHistory(item.keyword)"
+                                        class="btn-remove"></button>
                                 </li>
                             </ul>
                         </div>
