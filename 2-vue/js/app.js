@@ -29,6 +29,8 @@ new Vue({
             this.query = '';
             // this : Vue Ins를 의미, query : Vue Ins's data.query를 의미함. 
             // todo 검색결과를 숨길 예정.
+            this.submitted = false;
+            this.searchResult = [];
         },
         onKeyup(e) {
             if (!this.query.length) {
