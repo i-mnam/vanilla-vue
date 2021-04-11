@@ -19,9 +19,11 @@ KeywordView.render = function (data = []) {
     //여기에서 바인딩~
     this.bindClickEvent();
     this.show();
+
+    return this;//!!!!
 }
 
-KeywordView.getKeywordsHtml = function(data) {
+KeywordView.getKeywordsHtml = function (data) {
     return data.reduce((html, item, index) => {
         html += `<li data-keyword='${item.keyword}'>
                     <span class='number'>${index + 1}</span>
@@ -31,15 +33,15 @@ KeywordView.getKeywordsHtml = function(data) {
     }, '<ul class="list">') + '</ul>';
 }
 
-KeywordView.bindClickEvent = function() {
+KeywordView.bindClickEvent = function () {
     Array.from(this.el.querySelectorAll('li')).forEach(li => {
-       li.addEventListener('click', e => this.onClickKeyword(e)); 
+        li.addEventListener('click', e => this.onClickKeyword(e));
     });
 }
 
 KeywordView.onClickKeyword = function (e) {
-    const {keyword} = e.currentTarget.dataset;
-    this.emit('@click', {keyword});// 이렇게 넘기는게 좀 독특했음.
+    const { keyword } = e.currentTarget.dataset;
+    this.emit('@click', { keyword });// 이렇게 넘기는게 좀 독특했음.
 }
 
 export default KeywordView;

@@ -23,8 +23,9 @@ export default {
         KeywordView.setup(document.querySelector('#search-keyword'))
             .on('@click', e => this.onClickKeyword(e.detail.keyword));
 
-        KeywordView.setup(document.querySelector('#search-history'))
-            .on('@click', e => this.onClickHistory(e.detail.keyword));
+        HistoryView.setup(document.querySelector('#search-history'))
+            .on('@click', e => this.onClickHistory(e.detail.keyword))
+            .on('@remove', e => this.onRemoveHistory(e.detail.keyword));
 
         TabView.setup(document.querySelector('#tabs'))
             .on('@change', e => this.onChangeTab(e.detail.tabName));
@@ -61,7 +62,10 @@ export default {
 
     fetchSearchHistory() {
         HistoryModel.list().then(data => {
-            HistoryView.render(data);
+            // HistoryView.render(data);
+            // 윗 줄까지만 하면 DOM이 생성이 되고, 그러고 나서 체이닝을 통해 이벤트를 바인딩 할 수 있음.
+            // 이렇게 체이닝 chaining을 해주려면 render()가 return this;
+            HistoryView.render(data).bindRemoveBtn();
         });
     },
 
@@ -98,6 +102,7 @@ export default {
     onSearchResult(data) {
         TabView.hide();
         KeywordView.hide();
+        HistoryView.hide();
         ResultView.render(data);
     },
 
@@ -113,4 +118,13 @@ export default {
     onClickHistory(keyword) {
         this.search(keyword);
     },
+
+    onRemoveHistory(keyword) {
+        console.log(tag, 'onRemoveHistory() keyword = ', keyword);
+        HistoryModel.remove(keyword);
+
+        // data 변경 후 화면을 다시 그려주는 함수 호출
+        this.renderView();
+
+    }
 };
