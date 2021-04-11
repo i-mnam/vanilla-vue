@@ -28,7 +28,7 @@ viewModel.model = 'hello world';
 // npm library download
 
 
-// ch9.1
+// [ch9.1]
 // v-model(directive-command지령)를 사용하여 binding
 // dom input ele가 vue ins의 query라는 data(변수)와 binding 
 // 양방향 binding을 지원하는 directive
@@ -41,3 +41,11 @@ viewModel.model = 'hello world';
 // <form v-on:submit="onSubmit"></form> directive가 수신할 이벤트를 지정 받고, 바인딩할 함수도 설정받는 것
 
 // v-show="query.length" 참,거짓에 따라 보이고 안보이고를 결정하는 directive
+
+
+// [ch10.1]
+// v.if 조건식이 참일 경우에만 해당 ele을 출력해주는 directive
+// v.else 없는 경우
+
+// v-for="item in data.x"
+// v-bind:src="item.image"
