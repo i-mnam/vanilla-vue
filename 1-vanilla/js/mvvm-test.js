@@ -73,3 +73,12 @@ viewModel.model = 'hello world';
 //     data를 초기화 한 후에는 동적으로 벨류에 대해 view를 작동시켜준다.. 
 //<li v-for="tab in tabs" v-on:click="onClickTab(tab)">
 // 바인딩하는 함수에 parameter를 넣을 수 있었다.
+
+
+// [12]
+// <li v-for="item, index in keywords">
+// item에 객체를 담아올 수 있고 index를 두 번째 인자로 달 수 있다.
+
+// fetchKeyword() 와 같이 함수를 언제 호출해야하는지 잘 생각해봐야 한다.
+
+// html 에 vue.js 를 통해 정말로 완전한 view 기능을 html 페이지 혼자서 담당하고 있다. > 그래서 짧다고, 편하다고(???) 느끼는 게 큰거 같다.   
