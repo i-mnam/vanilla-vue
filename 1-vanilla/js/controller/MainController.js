@@ -2,9 +2,11 @@ import FormView from '../views/FormView.js';
 import ResultView from '../views/ResultView.js';
 import TabView from '../views/TabView.js';
 import KeywordView from '../views/KeywordView.js';
+import HistoryView from '../views/HistoryView.js';
 
 import SearchModel from '../models/SearchModel.js';
 import KeywordModel from '../models/KeywordModel.js';
+import HistoryModel from '../models/HistoryModel.js';
 
 const tag = '[MainController]';
 
@@ -21,6 +23,9 @@ export default {
         KeywordView.setup(document.querySelector('#search-keyword'))
             .on('@click', e => this.onClickKeyword(e.detail.keyword));
 
+        KeywordView.setup(document.querySelector('#search-history'))
+            .on('@click', e => this.onClickHistory(e.detail.keyword));
+
         TabView.setup(document.querySelector('#tabs'))
             .on('@change', e => this.onChangeTab(e.detail.tabName));
         ;
@@ -28,7 +33,7 @@ export default {
 
 
         // 선택 탭 정보를 담고있는게 낫겠다 해서 만든다고 함
-        this.selectedTab = '추천 검색어';
+        this.selectedTab = '최근 검색어';
         // TabView.setActiveTab(this.selectedTab);
 
         this.renderView();
@@ -42,7 +47,7 @@ export default {
         if (this.selectedTab === '추천 검색어') {
             this.fetchSearchKeyword();
         } else {
-
+            this.fetchSearchHistory();
         }
         ResultView.hide(); // 이게 꼭 있어야 할까? > 있어야 했따..
 
@@ -51,6 +56,12 @@ export default {
     fetchSearchKeyword() {
         KeywordModel.list().then(data => {
             KeywordView.render(data);
+        });
+    },
+
+    fetchSearchHistory() {
+        HistoryModel.list().then(data => {
+            HistoryView.render(data);
         });
     },
 
@@ -97,5 +108,9 @@ export default {
     onClickKeyword(keyword) {
         this.search(keyword);
         // FormView.inputEl.value = keyword;
+    },
+
+    onClickHistory(keyword) {
+        this.search(keyword);
     },
 };
