@@ -28,7 +28,7 @@ viewModel.model = 'hello world';
 // npm library download
 
 
-// [ch9.1]
+// [ch9.1] 검색폼
 // v-model(directive-command지령)를 사용하여 binding
 // dom input ele가 vue ins의 query라는 data(변수)와 binding 
 // 양방향 binding을 지원하는 directive
@@ -43,9 +43,14 @@ viewModel.model = 'hello world';
 // v-show="query.length" 참,거짓에 따라 보이고 안보이고를 결정하는 directive
 
 
-// [ch10.1]
+// [ch10.1] 검색결과
 // v.if 조건식이 참일 경우에만 해당 ele을 출력해주는 directive
 // v.else 없는 경우
 
 // v-for="item in data.x"
 // v-bind:src="item.image"
+
+
+// [11.1] 탭
+// <li v-for="tab in tabs" v-bind:class="{active: tab === selectedTab}">
+// v-bind:class 클래스 속성에 바인드 할건데, 후자 조건을 만족하면 active 값을 바인딩한 속성에 부여하겠다는 것
