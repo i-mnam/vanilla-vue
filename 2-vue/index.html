@@ -16,9 +16,13 @@
         </header>
 
         <div class="container">
-            Test: {{msg}}
+            <form v-on:submit.prevent="onSubmit">
+                <input type="text" v-model="query" placeholder="검색어를 입력하세요" autofocus>
+                <button type="reset" v-show="query.length" class="btn-reset"></button>
+            </form>
         </div>
     </div>
+    <!-- <script src="https://unpkg.com/vue@next"></script> -->
     <script src="https://unpkg.com/vue"></script>
     <script type="module" src="./js/app.js"></script>
 </body>
