@@ -54,3 +54,22 @@ viewModel.model = 'hello world';
 // [11.1] 탭
 // <li v-for="tab in tabs" v-bind:class="{active: tab === selectedTab}">
 // v-bind:class 클래스 속성에 바인드 할건데, 후자 조건을 만족하면 active 값을 바인딩한 속성에 부여하겠다는 것
+
+// vue instance 라입프사이클에 따라 호출되는 함수 존재 배움 e.g.) created() : 생성될 때 호출되는 함수
+
+
+// [11.3] 
+
+// !!!! 초기화의 중요성에 대해 배움
+// new Vue({
+//     el: '#app',//vue ins가 html에 어느 부분에 mount 될 건지 정하는 것
+//     data: {
+//         ...
+//         searchResult: [], // 검색결과 초기화
+//         submitted: false,
+//         selectedTab: '',
+//         ...
+//     이렇게 vue ins의 data에 초기화를 하지 않는 데이터는 view 쪽에서 바인딩할 때 최초 1회만 되고.. 그 이후로는 다이나믹하게 작동을 못한다. ㅠㅠ
+//     data를 초기화 한 후에는 동적으로 벨류에 대해 view를 작동시켜준다.. 
+//<li v-for="tab in tabs" v-on:click="onClickTab(tab)">
+// 바인딩하는 함수에 parameter를 넣을 수 있었다.
