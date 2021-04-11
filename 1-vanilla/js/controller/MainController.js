@@ -75,6 +75,10 @@ export default {
         console.log(tag, 'search() query = ', query);
 
         FormView.setValue(query);
+
+        // 검색할 때 최근 검색어 내역에 이력이 남아야 한다고 생각함
+        HistoryModel.add(query);
+
         // search api promise이기 때문에 then()을 사용할 수 있다.
         SearchModel.list(query).then(data => {
             this.onSearchResult(data);
