@@ -18,6 +18,18 @@ new Vue({
     methods: {
         onSubmit(e) {
             // debugger;
+        },
+        onReset() {
+            console.log('onReset()');
+            this.query = '';
+            // this : Vue Ins를 의미, query : Vue Ins's data.query를 의미함. 
+            // todo 검색결과를 숨길 예정.
+        },
+        onKeyup(e) {
+            if (!this.query.length) {
+                console.log("onKeyup()");
+                this.onReset();
+            }
         }
     }
 });

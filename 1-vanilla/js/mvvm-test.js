@@ -39,3 +39,5 @@ viewModel.model = 'hello world';
 // v-on:수신할 이벤트.prevent == e.preventDefault()
 
 // <form v-on:submit="onSubmit"></form> directive가 수신할 이벤트를 지정 받고, 바인딩할 함수도 설정받는 것
+
+// v-show="query.length" 참,거짓에 따라 보이고 안보이고를 결정하는 directive
