@@ -44,6 +44,7 @@ TabView.bindClick = function () {
 }
 
 TabView.onClick = function (tabName) {
+    console.log(tag, 'onClcik() tabName = ', tabName);
     this.setActiveTab(tabName);
     this.emit('@change', { tabName });
 }

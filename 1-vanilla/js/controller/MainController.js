@@ -34,7 +34,7 @@ export default {
 
 
         // 선택 탭 정보를 담고있는게 낫겠다 해서 만든다고 함
-        this.selectedTab = '최근 검색어';
+        this.selectedTab = '추천 검색어';
         // TabView.setActiveTab(this.selectedTab);
 
         this.renderView();
@@ -46,8 +46,10 @@ export default {
         TabView.setActiveTab(this.selectedTab);
 
         if (this.selectedTab === '추천 검색어') {
+            HistoryView.hide();
             this.fetchSearchKeyword();
         } else {
+            KeywordView.hide();
             this.fetchSearchHistory();
         }
         ResultView.hide(); // 이게 꼭 있어야 할까? > 있어야 했따..
@@ -107,7 +109,8 @@ export default {
     },
 
     onChangeTab(tabName) {
-        debugger;
+        this.selectedTab = tabName;
+        this.renderView();
     },
 
     onClickKeyword(keyword) {
