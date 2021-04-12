@@ -1,3 +1,7 @@
+import FormComponent from "../../3-component/js/components/FormComponent";
+import ListComponent from "../../3-component/js/components/ListComponent";
+import ResultComponent from "../../3-component/js/components/ResultComponent";
+
 const h1 = document.createElement('h1');
 
 document.body.appendChild(h1);
@@ -17,6 +21,8 @@ Object.defineProperty(viewModel, 'model', {
 // viewModel.model;
 
 viewModel.model = 'hello world';
+
+// emit : 방사하다, 토로하다
 
 // event.stopPropagation() 
 // event 버블링: 이벤트가 연속하여 발생하는 버블 현상을 의미합니다. 
@@ -87,3 +93,94 @@ viewModel.model = 'hello world';
 // [13.3]
 // <button v-on:click.stop="onClickRemoveHistory(item.keyword)" 
 // 클릭을 아무리 해도 remove작동안 안먹혀서 e.preventDefault를 해봤지만 여전히 작동 안되었음 e.stopPropagation()이거만 버블링을 제거해줌..
+
+
+
+// [14.1] Vue Component 
+// component 화면의 구조(header, footer, sidebar,,,) 를 module 별로 나눈 것, 그리고 그 대상 자체와 그 하위에 인풋창 div 등등을 모두 component라고 부른다.
+// vue.js에서 제공하는 component 구조는 3가지: HTML, JS(component logic), CSS 
+// vue파일 == component 파일
+
+
+// [14.2] FormComponent 구현 1
+// html DOM element 기준 component를 분리하여 및 html-component를 바인딩한다.
+// FormComponent.js 생성
+// component를 메인 js에 component로 등록
+// component로 등록할 때 사용한 key 는 directive가 되어 html에서 호출하여 사용한다.
+//    <!--form 있던 곳 : app.js의 component로 설정한 key값으로 directive 사용-->
+//      <search-form v-bind:??="query"></search-form>
+
+// <template id="search-form">
+//    <form v-on:submit.prevent="onSubmit">
+//        <input type="text" v-model="inputValue" 
+// ...
+// </template>
+
+// index.html 
+// <search-form></search-form>
+// <template></template>
+// app.js
+// *Component.js
+
+// search-form directive에서 vue directive 중 bind 디렉티브를 사용해서 search-form 컴포넌트의(template > FormComponent) ??을 vue ins의 query로 연결 설정하겠다.
+    // ...
+    // props: ['value'],//부모로 부터 받은 값
+    // data() {
+    //     return {
+    //         inputValue : this.value,
+    //     };
+    // },
+    // ...
+// 위처럼 사용하여 vue ins와 연결 : 따라서 input에 그냥 값만 입력하고 enter안눌렀을 땐, vue ins에서는 query에 값이 없고, view 쪽과 바인딩한 template > component의 query에서만 나옴
+
+
+// [14.3]  FormComponent 구현 2
+// component에서 발생한 이벤트로인한 데이터 parent에게 전달하기
+// $emit() : child > parent 
+// [FormComponent.js  자식] this.$emit('@submit', this.inputValue.trim());
+// [index.html 바인딩정보]  <search-form v-bind:value="query" v-on:@submit="onSubmit"></search-form>
+// [app.js 부모] onSubmit(query) { this.query = query; this.search(); },
+
+// <search-form v-bind:value="query" v-on:@submit="onSubmit" v-on:@reset="onReset"></search-form>
+// v-bind는 parent(query)에서 child(value)로 바인딩해서 값을 전달
+// v-on은 child에서 parent로 이벤트 및 값을 바인딩해서 값을 전달하는 것.
+
+
+// 원래 e.g. : this.emit('@submit', {input: this.inputEl.value});
+// FormView.setup(document.querySelector('form'))
+//             .on('@submit', e => this.onSubmit(e.detail.input))
+//             .on('@reset', e => this.onResetForm());
+
+
+// [14.4] FormComponent 구현 
+// component 따기 > template 따기 > component정보에 맞춰 directive만들기 > v-bind(parent > child 정보전달), v-on(child > parent event와 data 전달)
+// ResultComponent.js 
+// <search-result v-bind:data="searchResult" v-bind:query="query"></search-result>
+
+
+// [14.5] ListComponent
+// 추천 검색 결과와 최근 검색 결과를 공유하는 component를 만들음
+// template 정보를 app의 component에 등록
+// view 에 directive, template 선언
+// directive에서 자식용, 부모용 변수명 확정
+// template에서 자식용 변수명으로 수정 및 component에서 발생할 이벤트 확인
+// component에서 event 등록 및 로직 작업
+// directive에 이벤트 바인딩 등록 
+// 부모 vue instance에서 이벤트 올바르게 작동하는지 확인
+
+// v-on:click.stop="onClickRemoveHistory(item.keyword)" 
+// 이였던 게,  component vue로 들어오니 
+// directive에서는 v-on:@remove="onClickRemoveHistory"
+// 이렇게 깔끔해졌다.
+// templated 에서는 똑같다. v-on:click.stop="onRemoveHistory(item.keyword)" 
+
+
+// [14.5] ListComponent 구현2
+// template code 안에 v-if="xx" 보기 힘듬
+// computed : 함수 이지만, template에서는 변수처럼 사용가능
+// 코드의 중복 해결 , 가독성 높임
+// watch : view model을 감시하고 있다가 특정 값이 변경되면, 어떤 행동을 하는 ...속성..
+
+// 마지막으로 탭을 구현하는데 생각보다 오래걸림 / 이유 : props에 사용할 것은 camel도, -dash 도 사용하지 말아야 겠다. 오류에는 안잡히지만 오류가 나와서 class="active" < 이 연산이 안되었다..
+
+
